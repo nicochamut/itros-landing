@@ -364,9 +364,9 @@ export function Benefits() {
             </motion.div>
             <motion.div variants={cardVariants}>
               <MainTitle>
-                POR QUÉ
+                POR QUÉ ELEGIR
                 <br />
-                <HighlightText>ELEGIR ITROS</HighlightText>
+                <HighlightText> ITRos</HighlightText>
               </MainTitle>
             </motion.div>
           </HeaderContent>

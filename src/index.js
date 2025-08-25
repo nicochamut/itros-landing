@@ -10,7 +10,7 @@ root.render(
   <React.StrictMode>
     <Intro
       total={3000} // 3s en total
-      hold={400} // ~1s visible al 100%
+      hold={1800} // ~1s visible al 100%
       text="ITROS"
       bg="#000000"
       onFinish={() => console.log("Intro terminada")}

@@ -23,6 +23,7 @@ const HeaderContent = styled.div`
   max-width: 80rem;
   margin: 0 auto;
   padding: 0 1.5rem;
+
   @media (min-width: 1024px) {
     padding: 0 2rem;
   }
@@ -35,7 +36,12 @@ const HeaderGlass = styled.div`
   border-radius: 14px;
   padding: 0 0.75rem;
 
-  background: rgba(12, 12, 12, 0.22);
+  background: linear-gradient(
+    to right,
+    rgba(44, 44, 44, 0.326),
+    rgba(12, 12, 12, 0.22),
+    rgba(44, 44, 44, 0.326)
+  );
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -169,8 +175,8 @@ const GhostButton = styled.button`
 
 /* CTA principal */
 const PrimaryButton = styled.button`
-  background: #e26d5a;
-  color: #fff;
+  background: #7cd19d;
+  color: #000000;
   padding: 0.7rem 1.25rem;
   border: none;
   border-radius: 10px;

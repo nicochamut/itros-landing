@@ -112,7 +112,7 @@ const PulsingDot3 = styled.div`
 
 /* ================= Contenido ================= */
 const HeroContent = styled(motion.div)`
-  max-width: 72rem;
+  max-width: 150rem;
   /* margin: -6vh auto 0; */
   text-align: center;
   position: relative;
@@ -120,6 +120,9 @@ const HeroContent = styled(motion.div)`
 
   /* ✅ Deja pasar mousemove hacia Spline sin perder clicks en CTAs */
   pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const ContentContainer = styled(motion.div)`
   display: flex;
@@ -130,29 +133,36 @@ const ContentContainer = styled(motion.div)`
   /* filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
   backdrop-filter: blur(6px); */
   padding: 4rem 2rem;
-  height: 35rem;
+  height: 30rem;
+  max-width: 100rem;
+  align-items: center;
 `;
 const HeadlineContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+  width: 120rem;
+
+  height: 25rem;
 `;
 const MainHeadline = styled(motion.h1)`
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 600;
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: 700;
   line-height: 0.95;
-  letter-spacing: -0.04em;
+  letter-spacing: 0.04em;
   color: #fff;
+  width: 100%;
 
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   font-family: "Montserrat", sans-serif;
 `;
 const HighlightText = styled.span`
-  color: #e74c3c;
+  font-family: "Montserrat", sans-serif;
 `;
 
 const SubHeadline = styled(motion.p)`
-  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
   font-weight: 300;
   line-height: 1.6;
   letter-spacing: -0.015em;
@@ -160,16 +170,29 @@ const SubHeadline = styled(motion.p)`
   max-width: 64rem;
   margin: 0 auto;
   text-wrap: pretty;
+  padding: 0.5rem 1rem;
+  font-family: "Helvetica Neue", sans-serif;
+  &.first {
+    font-weight: 600;
+    color: #f8f991;
+    padding: 0.25rem 2rem;
+    letter-spacing: 1.2rem;
+    font-size: clamp(1rem, 4vw, 1.1rem);
+  }
 `;
 
 const CopyGlass = styled(motion.div)`
-  display: inline-block;
-  margin-inline: auto;
-  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.2vw, 1rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  /* padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.2vw, 1rem); */
 
   background: rgba(10, 10, 10, 0.22);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
+  border-radius: 0.2rem;
 `;
 
 const CTAContainer = styled(motion.div)`
@@ -186,8 +209,8 @@ const CTAContainer = styled(motion.div)`
 
 const PrimaryButton = styled.button`
   pointer-events: auto; /* ✅ clickable */
-  background: #e26d5a;
-  color: #ffffff;
+  background: #7cd19d;
+  color: #000000;
   padding: 1rem 3rem;
   font-size: 0.75rem;
   font-weight: 600;
@@ -397,20 +420,17 @@ export function Hero() {
       <HeroContent variants={contentVariants}>
         <ContentContainer>
           <HeadlineContainer variants={headlineVariants}>
+            <SubHeadline className="first">
+              INNOVACIÓN CON PROPÓSITO
+            </SubHeadline>
+
             <MainHeadline>
-              Diseñamos
-              <br />
-              <HighlightText>experiencias digitales</HighlightText>
-              <br />
-              con propósito
+              Transforma tu negocio con el poder de la IA
             </MainHeadline>
 
-            <CopyGlass variants={subheadlineVariants}>
-              <SubHeadline>
-                Tecnología, IA y datos en sintonía para llevar tu negocio a un
-                nuevo nivel de eficiencia y evolución digital.
-              </SubHeadline>
-            </CopyGlass>
+            <SubHeadline>
+              Tecnología que automatiza, optimiza y hace escalar tu negocio.
+            </SubHeadline>
           </HeadlineContainer>
 
           <CTAContainer variants={ctaVariants}>
@@ -421,7 +441,7 @@ export function Hero() {
                 whileTap={{ scale: 0.95 }}
                 onClick={scrollToSolutions}
               >
-                <span>Explorar Soluciones</span>
+                <span>COMENZAR AHORA</span>
                 <ArrowRight className="arrow-icon" size={16} />
               </PrimaryButton>
             </motion.div>

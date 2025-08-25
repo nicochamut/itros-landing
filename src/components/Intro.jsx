@@ -30,8 +30,8 @@ const Row = styled(motion.div)`
 const Char = styled(motion.span)`
   color: #fff;
   font-family: "Montserrat", sans-serif;
-  font-weight: 800;
-  letter-spacing: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 3rem;
   font-size: clamp(40px, 8vw, 96px);
 `;
 
@@ -54,7 +54,7 @@ export default function Intro({
   charDelay = 0.08, // s entre letras
   hold = 0.6, // s al finalizar
   fadeOut = 0.4, // s del fundido de salida
-  forceCloseAfter = 4, // s de seguridad
+  forceCloseAfter = 2, // s de seguridad
   onFinish,
   children,
 }) {
@@ -106,7 +106,7 @@ export default function Intro({
   const charVariants = prefersReducedMotion
     ? { hidden: { opacity: 1 }, show: { opacity: 1 } }
     : {
-        hidden: { opacity: 0, y: "0.35em", filter: "blur(6px)" },
+        hidden: { opacity: 0, y: "0.35em", filter: "blur(10px)" },
         show: {
           opacity: 1,
           y: 0,

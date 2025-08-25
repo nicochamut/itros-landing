@@ -6,9 +6,6 @@ import { Benefits } from "./components/Benefits.jsx";
 import { Solutions } from "./components/Solutions.jsx";
 import { Testimonials } from "./components/Testimonials.jsx";
 
-import { PaymentSuccess } from "./components/PaymentSuccess.jsx";
-import { PaymentFailure } from "./components/PaymentFailure.jsx";
-import { PaymentPending } from "./components/PaymentPending.jsx";
 import { CTA } from "./components/CTA.jsx";
 import { Footer } from "./components/Footer.jsx";
 
@@ -71,22 +68,6 @@ const ContentContainer = styled.div`
 `;
 
 export default function App() {
-  // Simple routing based on pathname
-  const pathname = window.location.pathname;
-
-  // Payment result pages
-  if (pathname === "/payment-success") {
-    return <PaymentSuccess />;
-  }
-
-  if (pathname === "/payment-failure") {
-    return <PaymentFailure />;
-  }
-
-  if (pathname === "/payment-pending") {
-    return <PaymentPending />;
-  }
-
   return (
     <AppContainer>
       <BackgroundGradient />
