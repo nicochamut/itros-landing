@@ -1,12 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import Intro from "./components/Intro";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <Intro
+      total={3000} // 3s en total
+      hold={400} // ~1s visible al 100%
+      text="ITROS"
+      bg="#000000"
+      onFinish={() => console.log("Intro terminada")}
+    ></Intro>
     <App />
   </React.StrictMode>
 );
