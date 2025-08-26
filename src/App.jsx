@@ -21,7 +21,7 @@ const AppContainer = styled.div`
 const BackgroundGradient = styled.div`
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #000000 100%);
+  background: linear-gradient(135deg, #010101 100%, #1a1a1a 50%, #000000 100%);
   opacity: 0.8;
 `;
 
