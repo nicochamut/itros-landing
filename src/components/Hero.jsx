@@ -1,9 +1,9 @@
-// Hero.tsx / Hero.jsx
-import React from "react";
+// Hero.jsx
 import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 import Spline from "@splinetool/react-spline";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import React, { useRef, useEffect } from "react";
 
 /* ================= Animations ================= */
 const pulse = keyframes`0%,100%{opacity:1}50%{opacity:.5}}`;
@@ -31,12 +31,12 @@ const HeroSection = styled(motion.section)`
   }
 `;
 
-/* === Fondo Spline (ahora recibe eventos de mouse) === */
+/* === Fondo Spline (recibe eventos si le quitás pointer-events: none) === */
 const SplineLayer = styled.div`
   position: absolute;
   inset: 0;
   z-index: 0;
-  pointer-events: none;
+  pointer-events: none; /* Dejá pasar clics/hover a las CTAs */
   opacity: 0.92;
   filter: saturate(0.95) contrast(1.05) brightness(0.9);
 
@@ -53,6 +53,7 @@ const SplineLayer = styled.div`
       linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.65) 100%);
     z-index: 2;
     pointer-events: none;
+    /* ❌ eliminado transform: scale(0); */
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -113,7 +114,6 @@ const PulsingDot3 = styled.div`
 /* ================= Contenido ================= */
 const HeroContent = styled(motion.div)`
   max-width: 150rem;
-  /* margin: -6vh auto 0; */
   text-align: center;
   position: relative;
   z-index: 10;
@@ -129,9 +129,6 @@ const ContentContainer = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   gap: 4rem;
-  /* background: rgba(224, 224, 224, 0.051); */
-  /* filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-  backdrop-filter: blur(6px); */
   padding: 4rem 2rem;
   height: 30rem;
   max-width: 100rem;
@@ -143,24 +140,21 @@ const HeadlineContainer = styled(motion.div)`
   align-items: center;
   justify-content: center;
   width: 120rem;
-
   height: 25rem;
 `;
 const MainHeadline = styled(motion.h1)`
-  font-size: clamp(2rem, 8vw, 4rem);
+  font-size: clamp(2rem, 8vw, 3rem);
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: 0.04em;
   color: #fff;
   width: 100%;
-
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   font-family: "Montserrat", sans-serif;
 `;
 const HighlightText = styled.span`
   font-family: "Montserrat", sans-serif;
 `;
-
 const SubHeadline = styled(motion.p)`
   font-size: clamp(1.125rem, 2vw, 1.5rem);
   font-weight: 300;
@@ -169,32 +163,28 @@ const SubHeadline = styled(motion.p)`
   color: #cfcfcf;
   max-width: 64rem;
   margin: 0 auto;
-  text-wrap: pretty;
+
   padding: 0.5rem 1rem;
   font-family: "Helvetica Neue", sans-serif;
+
   &.first {
     font-weight: 600;
     color: #f8f991;
     padding: 0.25rem 2rem;
     letter-spacing: 1.2rem;
-    font-size: clamp(1rem, 4vw, 1.1rem);
+    font-size: clamp(1rem, 4vw, 1rem);
   }
 `;
-
 const CopyGlass = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-
-  /* padding: clamp(0.5rem, 1vw, 0.75rem) clamp(0.75rem, 1.2vw, 1rem); */
-
   background: rgba(10, 10, 10, 0.22);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border-radius: 0.2rem;
 `;
-
 const CTAContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
@@ -206,7 +196,6 @@ const CTAContainer = styled(motion.div)`
   }
   pointer-events: none; /* deja pasar movimientos */
 `;
-
 const PrimaryButton = styled.button`
   pointer-events: auto; /* ✅ clickable */
   background: #7cd19d;
@@ -241,7 +230,6 @@ const PrimaryButton = styled.button`
     transform: translateX(0.25rem);
   }
 `;
-
 const SecondaryButton = styled.button`
   pointer-events: auto; /* ✅ clickable */
   color: #fff;
@@ -275,7 +263,6 @@ const SecondaryButton = styled.button`
     transform: scale(1.1);
   }
 `;
-
 const StatsGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -305,7 +292,6 @@ const StatLabel = styled.div`
   letter-spacing: 0.2em;
   color: #8a8a8a;
 `;
-
 const ScrollIndicator = styled.div`
   position: absolute;
   bottom: 2rem;
@@ -403,11 +389,34 @@ export function Hero() {
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
+  // ====== Zoom de Spline ======
+  const splineAppRef = useRef(null);
+
+  function handleSplineLoad(app) {
+    splineAppRef.current = app;
+    // Zoom inicial (alejado en mobile)
+    app.setZoom(window.innerWidth < 768 ? 0.7 : 0.9);
+    // console.log("Spline cargó", app); // debug
+  }
+
+  useEffect(() => {
+    const onResize = () => {
+      // Reajusta el zoom cuando cambia el ancho
+      splineAppRef.current?.setZoom(window.innerWidth < 768 ? 0.68 : 0.9);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
     <HeroSection variants={heroVariants} initial="initial" animate="animate">
-      {/* Fondo 3D interactivo */}
+      {/* Fondo 3D */}
       <SplineLayer aria-hidden="true">
-        <Spline scene="https://prod.spline.design/lYYJ7s4jQc03vEzN/scene.splinecode" />
+        <Spline
+          scene="https://prod.spline.design/lYYJ7s4jQc03vEzN/scene.splinecode"
+          onLoad={handleSplineLoad}
+          style={{ background: "transparent" }}
+        />
       </SplineLayer>
 
       <BackgroundElements>
@@ -416,18 +425,16 @@ export function Hero() {
         <PulsingDot3 />
       </BackgroundElements>
 
-      {/* Contenido estático (mouse move pasa hacia Spline) */}
+      {/* Contenido estático (mousemove pasa hacia Spline) */}
       <HeroContent variants={contentVariants}>
         <ContentContainer>
           <HeadlineContainer variants={headlineVariants}>
             <SubHeadline className="first">
               INNOVACIÓN CON PROPÓSITO
             </SubHeadline>
-
             <MainHeadline>
               Transforma tu negocio con el poder de la IA
             </MainHeadline>
-
             <SubHeadline>
               Tecnología que automatiza, optimiza y hace escalar tu negocio.
             </SubHeadline>
